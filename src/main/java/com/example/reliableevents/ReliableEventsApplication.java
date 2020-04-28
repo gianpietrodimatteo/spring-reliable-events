@@ -1,15 +1,18 @@
 package com.example.reliableevents;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @EnableAsync
+@EnableScheduling
 public class ReliableEventsApplication {
 
     public static void main(String[] args) {
@@ -21,12 +24,12 @@ public class ReliableEventsApplication {
     }
 
     @Bean
-    public Executor taskExecutor() {
+    public Executor taskExecutor(@Value("${executor.thread.amount}") int threadAmount, @Value("${executor.queue.capacity}") int queueCapacity) {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(2);
-        executor.setQueueCapacity(500);
-        executor.setThreadNamePrefix("ReliableEvents-");
+        executor.setCorePoolSize(threadAmount);
+        executor.setMaxPoolSize(threadAmount);
+        executor.setQueueCapacity(queueCapacity);
+        executor.setThreadNamePrefix("REThread-");
         executor.initialize();
         return executor;
     }

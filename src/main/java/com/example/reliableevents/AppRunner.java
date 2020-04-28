@@ -1,14 +1,11 @@
 package com.example.reliableevents;
 
-import com.example.reliableevents.domain.Expense;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.example.reliableevents.operation.core.rest.DashboardUpdateService;
+import com.example.reliableevents.service.ExpenseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
-import java.util.concurrent.CompletableFuture;
 
 @Component
 class AppRunner implements CommandLineRunner {
@@ -16,15 +13,15 @@ class AppRunner implements CommandLineRunner {
     private final static Logger logger = LoggerFactory.getLogger(AppRunner.class);
 
     private final ExpenseService expenseService;
-    private final WalletDashboardUpdateService walletDashboardUpdateService;
+    private final DashboardUpdateService dashboardUpdateService;
 
-    public AppRunner(ExpenseService gitHubLookupService, WalletDashboardUpdateService walletDashboardUpdateService) {
-        this.walletDashboardUpdateService = walletDashboardUpdateService;
-        this.expenseService = gitHubLookupService;
+    public AppRunner(ExpenseService expenseService, DashboardUpdateService dashboardUpdateService) {
+        this.dashboardUpdateService = dashboardUpdateService;
+        this.expenseService = expenseService;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         // book =~ save
 //        expenseService.book("Alice", "Bob", "Carol");
 //        Assert.isTrue(expenseService.findAllBookings().size() == 3,

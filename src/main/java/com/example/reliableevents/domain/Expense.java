@@ -31,6 +31,11 @@ public class Expense {
         this.budget = budget;
     }
 
+    public Expense(Expense expense) {
+        this.name = expense.name;
+        this.budget = expense.budget;
+    }
+
     public Integer getId() {
         return id;
     }
