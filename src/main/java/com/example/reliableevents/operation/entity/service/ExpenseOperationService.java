@@ -1,10 +1,10 @@
-package com.example.reliableevents.operation.service;
+package com.example.reliableevents.operation.entity.service;
 
 import com.example.reliableevents.operation.core.enums.Status;
 import com.example.reliableevents.operation.core.service.OperationService;
-import com.example.reliableevents.operation.domain.ExpenseOperation;
-import com.example.reliableevents.operation.event.ExpenseOperationEvent;
-import com.example.reliableevents.operation.repository.ExpenseOperationRepository;
+import com.example.reliableevents.operation.entity.domain.ExpenseOperation;
+import com.example.reliableevents.operation.entity.event.ExpenseOperationEvent;
+import com.example.reliableevents.operation.entity.repository.ExpenseOperationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.reliableevents;
 
-import com.example.reliableevents.operation.core.rest.DashboardUpdateService;
+import com.example.reliableevents.operation.DashboardUpdateService;
 import com.example.reliableevents.service.ExpenseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

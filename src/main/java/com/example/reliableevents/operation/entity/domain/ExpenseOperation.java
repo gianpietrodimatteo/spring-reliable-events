@@ -1,4 +1,4 @@
-package com.example.reliableevents.operation.domain;
+package com.example.reliableevents.operation.entity.domain;
 
 import com.example.reliableevents.domain.Expense;
 import com.example.reliableevents.dto.ExpenseDto;

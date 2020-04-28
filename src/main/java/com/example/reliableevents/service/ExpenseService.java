@@ -2,10 +2,10 @@ package com.example.reliableevents.service;
 
 import com.example.reliableevents.domain.Expense;
 import com.example.reliableevents.dto.ExpenseDto;
-import com.example.reliableevents.operation.domain.ExpenseOperation;
-import com.example.reliableevents.operation.event.ExpenseOperationCommitEvent;
-import com.example.reliableevents.operation.event.ExpenseOperationEvent;
-import com.example.reliableevents.operation.repository.ExpenseOperationRepository;
+import com.example.reliableevents.operation.entity.domain.ExpenseOperation;
+import com.example.reliableevents.operation.entity.event.ExpenseOperationCommitEvent;
+import com.example.reliableevents.operation.entity.event.ExpenseOperationEvent;
+import com.example.reliableevents.operation.entity.repository.ExpenseOperationRepository;
 import com.example.reliableevents.repository.ExpenseRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

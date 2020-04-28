@@ -1,7 +1,7 @@
-package com.example.reliableevents.operation.core.schedule;
+package com.example.reliableevents.operation;
 
 import com.example.reliableevents.operation.core.event.DashboardStatusEvent;
-import com.example.reliableevents.operation.service.ExpenseOperationService;
+import com.example.reliableevents.operation.entity.service.ExpenseOperationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

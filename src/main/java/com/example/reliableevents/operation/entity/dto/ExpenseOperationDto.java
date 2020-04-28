@@ -1,7 +1,7 @@
-package com.example.reliableevents.operation.dto;
+package com.example.reliableevents.operation.entity.dto;
 
 import com.example.reliableevents.operation.core.dto.OperationDto;
-import com.example.reliableevents.operation.domain.ExpenseOperation;
+import com.example.reliableevents.operation.entity.domain.ExpenseOperation;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
