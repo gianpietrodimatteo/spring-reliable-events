@@ -10,9 +10,9 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>reliable-events</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>reliable-events</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Demo project for reliable use of asynchronous events</description>
 
     <properties>
         <java.version>1.8</java.version>

@@ -1,12 +1,13 @@
 package com.example.reliableevents.domain;
 
 import com.example.reliableevents.dto.ExpenseDto;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Entity
 public class Expense {
@@ -14,6 +15,7 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(unique = true)
     private String name;
 
     private BigDecimal budget;

@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -44,21 +45,25 @@ public class DashboardUpdateService {
     public void sendExpenseOperation(ExpenseOperation operation) throws ExecutionException, InterruptedException {
         final ExpenseOperationDto operationDto = new ExpenseOperationDto(operation);
         try {
-            ResponseEntity response = send("expense", HttpMethod.POST, operationDto).get();
+            ResponseEntity<String> response = send("expense", HttpMethod.POST, operationDto).get();
             if (acceptedCodes.contains(response.getStatusCode())) {
                 operation.received(LocalDateTime.now());
                 expenseOperationRepository.save(operation);
-                logger.info("Operation delivered! " + operation);
+                logger.info("Operation delivered! " + response.getStatusCode() + " " + operation);
             }
         } catch (ResourceAccessException e) {
             logger.warn("The dashboard server is down!");
             applicationEventPublisher.publishEvent(new DashboardStatusEvent(false));
+        } catch (HttpClientErrorException e) {
+            operation.received(LocalDateTime.now());
+            expenseOperationRepository.save(operation);
+            logger.info("Operation delivered! " + e.getMessage());
         }
     }
 
     public void checkDashboardStatus() throws ExecutionException, InterruptedException {
         try {
-            ResponseEntity response = send("status", HttpMethod.GET, null).get();
+            ResponseEntity<String> response = send("status", HttpMethod.GET, null).get();
             if (!response.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
                 logger.info("The dashboard server is up again");
                 applicationEventPublisher.publishEvent(new DashboardStatusEvent(true));
@@ -68,15 +73,14 @@ public class DashboardUpdateService {
         }
     }
 
-    private CompletableFuture<ResponseEntity> send(String relativeUrl, HttpMethod method, OperationDto operation) throws ResourceAccessException {
+    private CompletableFuture<ResponseEntity<String>> send(String relativeUrl, HttpMethod method, OperationDto operation) throws ResourceAccessException {
         final String url = baseUrl + "/" + relativeUrl;
         logger.info("Sending " + method.toString() + " to " + url);
-        ResponseEntity result;
         switch (method) {
             case GET:
-                return CompletableFuture.completedFuture(restTemplate.getForEntity(url, ResponseEntity.class));
+                return CompletableFuture.completedFuture(restTemplate.getForEntity(url, String.class));
             case POST:
-                return CompletableFuture.completedFuture(restTemplate.postForEntity(url, operation, ResponseEntity.class));
+                return CompletableFuture.completedFuture(restTemplate.postForEntity(url, operation, String.class));
             default:
                 logger.error("No other method for this service implemented for the dashboard service!");
                 return null;
