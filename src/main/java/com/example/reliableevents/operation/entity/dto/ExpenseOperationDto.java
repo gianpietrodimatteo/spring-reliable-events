@@ -3,18 +3,17 @@ package com.example.reliableevents.operation.entity.dto;
 import com.example.reliableevents.operation.core.dto.OperationDto;
 import com.example.reliableevents.operation.entity.domain.ExpenseOperation;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class ExpenseOperationDto extends OperationDto {
 
     private String name;
-    private BigDecimal budgetChange;
+    private byte[] budgetChange;
 
     public ExpenseOperationDto() {
     }
 
-    public ExpenseOperationDto(String uuid, LocalDateTime occurredAt, String name, BigDecimal budgetChange) {
+    public ExpenseOperationDto(String uuid, LocalDateTime occurredAt, String name, byte[] budgetChange) {
         super(uuid, occurredAt);
         this.name = name;
         this.budgetChange = budgetChange;
@@ -34,11 +33,11 @@ public class ExpenseOperationDto extends OperationDto {
         this.name = name;
     }
 
-    public BigDecimal getBudgetChange() {
+    public byte[] getBudgetChange() {
         return budgetChange;
     }
 
-    public void setBudgetChange(BigDecimal budgetChange) {
+    public void setBudgetChange(byte[] budgetChange) {
         this.budgetChange = budgetChange;
     }
 }

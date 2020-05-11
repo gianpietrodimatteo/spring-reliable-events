@@ -11,15 +11,13 @@ import java.util.UUID;
 
 @MappedSuperclass
 public class Operation {
+    private final String uuid = UUID.randomUUID().toString();
+    private final LocalDateTime occurredAt = LocalDateTime.now();
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private LocalDateTime receivedAt;
     private Status status = Status.PENDING;
-
-    private final String uuid = UUID.randomUUID().toString();
-    private final LocalDateTime occurredAt = LocalDateTime.now();
 
     public void received(LocalDateTime at) {
         this.receivedAt = at;

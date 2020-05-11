@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -30,12 +31,10 @@ public class DashboardUpdateService {
     private static final Logger logger = LoggerFactory.getLogger(DashboardUpdateService.class);
     private final RestTemplate restTemplate;
     private final ApplicationEventPublisher applicationEventPublisher;
-
-    @Autowired
-    private ExpenseOperationRepository expenseOperationRepository;
-
     private final String baseUrl = "http://localhost:3000/operation";
     private final Set<HttpStatus> acceptedCodes = new HashSet<>(Arrays.asList(HttpStatus.CREATED, HttpStatus.CONFLICT, HttpStatus.INTERNAL_SERVER_ERROR));
+    @Autowired
+    private ExpenseOperationRepository expenseOperationRepository;
 
     public DashboardUpdateService(RestTemplateBuilder restTemplateBuilder, ApplicationEventPublisher applicationEventPublisher) {
         this.restTemplate = restTemplateBuilder.build();
@@ -45,7 +44,7 @@ public class DashboardUpdateService {
     public void sendExpenseOperation(ExpenseOperation operation) throws ExecutionException, InterruptedException {
         final ExpenseOperationDto operationDto = new ExpenseOperationDto(operation);
         try {
-            ResponseEntity<String> response = send("expense", HttpMethod.POST, operationDto).get();
+            ResponseEntity<String> response = Objects.requireNonNull(send("expense", HttpMethod.POST, operationDto)).get();
             if (acceptedCodes.contains(response.getStatusCode())) {
                 operation.received(LocalDateTime.now());
                 expenseOperationRepository.save(operation);
@@ -63,7 +62,7 @@ public class DashboardUpdateService {
 
     public void checkDashboardStatus() throws ExecutionException, InterruptedException {
         try {
-            ResponseEntity<String> response = send("status", HttpMethod.GET, null).get();
+            ResponseEntity<String> response = Objects.requireNonNull(send("status", HttpMethod.GET, null)).get();
             if (!response.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
                 logger.info("The dashboard server is up again");
                 applicationEventPublisher.publishEvent(new DashboardStatusEvent(true));

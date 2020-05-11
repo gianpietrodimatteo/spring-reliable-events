@@ -2,12 +2,10 @@ package com.example.reliableevents.dto;
 
 import com.example.reliableevents.domain.Expense;
 
-import java.math.BigDecimal;
-
 public class ExpenseDto {
     private String name;
 
-    private BigDecimal budget;
+    private byte[] budget;
 
     public ExpenseDto() {
     }
@@ -17,7 +15,7 @@ public class ExpenseDto {
         this.budget = expense.getBudget();
     }
 
-    public ExpenseDto(String name, BigDecimal budget) {
+    public ExpenseDto(String name, byte[] budget) {
         this.name = name;
         this.budget = budget;
     }
@@ -30,11 +28,11 @@ public class ExpenseDto {
         this.name = name;
     }
 
-    public BigDecimal getBudget() {
+    public byte[] getBudget() {
         return budget;
     }
 
-    public void setBudget(BigDecimal budget) {
+    public void setBudget(byte[] budget) {
         this.budget = budget;
     }
 }

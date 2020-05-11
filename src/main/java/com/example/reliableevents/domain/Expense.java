@@ -1,13 +1,8 @@
 package com.example.reliableevents.domain;
 
 import com.example.reliableevents.dto.ExpenseDto;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Entity
 public class Expense {
@@ -18,7 +13,7 @@ public class Expense {
     @Column(unique = true)
     private String name;
 
-    private BigDecimal budget;
+    private byte[] budget;
 
     public Expense() {
     }
@@ -28,12 +23,13 @@ public class Expense {
         this.budget = expenseDto.getBudget();
     }
 
-    public Expense(String name, BigDecimal budget) {
+    public Expense(String name, byte[] budget) {
         this.name = name;
         this.budget = budget;
     }
 
     public Expense(Expense expense) {
+        this.id = expense.id;
         this.name = expense.name;
         this.budget = expense.budget;
     }
@@ -54,11 +50,11 @@ public class Expense {
         this.name = name;
     }
 
-    public BigDecimal getBudget() {
+    public byte[] getBudget() {
         return budget;
     }
 
-    public void setBudget(BigDecimal budget) {
+    public void setBudget(byte[] budget) {
         this.budget = budget;
     }
 }

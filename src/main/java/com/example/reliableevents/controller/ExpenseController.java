@@ -32,7 +32,7 @@ public class ExpenseController {
         return "Deleted";
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping()
     public List<Expense> getAllUsers() {
         return expenseService.findAll();
     }
