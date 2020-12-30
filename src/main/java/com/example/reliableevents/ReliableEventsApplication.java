@@ -3,7 +3,10 @@ package com.example.reliableevents;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.system.JavaVersion;
+import org.springframework.boot.system.SystemProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.SpringVersion;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -20,6 +23,11 @@ public class ReliableEventsApplication {
         // com o close ele somente roda o app runner
         // sem o close roda o app runner e dps starteia o servidor, man
 //         SpringApplication.run(ReliableEventsApplication.class, args).close();
+        System.out.println("version: " + SpringVersion.getVersion());
+        System.out.println("version: " + SystemProperties.get("java.version"));
+        System.out.println("version: " + System.getProperty("java.version")); // System is springs, no extra import needed
+        System.out.println("version: " + JavaVersion.getJavaVersion().toString());
+
         SpringApplication.run(ReliableEventsApplication.class, args);
     }
 
